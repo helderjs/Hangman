@@ -1,9 +1,13 @@
-var colors = ["#B8D430", "#3AB745", "#029990", "#3501CB",
-             "#2E2C75", "#673A7E", "#CC0071", "#F80120",
-             "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
-var restaraunts = ["1", "200", "0", "1000",
-                   "50", "800", "Perde Tudo", "-100",
-                   "-500", "5000", "500", "100"];
+var colors = [
+    "#B8D430", "#3AB745", "#029990", "#3501CB",
+    "#2E2C75", "#673A7E", "#CC0071", "#F80120",
+    "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"
+];
+var points = [
+    "1", "-250", "10", "1000",
+    "50", "250", "Perde Tudo", "-100",
+    "-500", "5000", "500", "100"
+];
 
 var startAngle = 0;
 var arc = Math.PI / 6;
@@ -13,6 +17,7 @@ var spinArcStart = 10;
 var spinTime = 0;
 var spinTimeTotal = 0;
 
+var selectedPoint = 0;
 var ctx;
     
 function drawRouletteWheel() {
@@ -50,8 +55,8 @@ function drawRouletteWheel() {
       ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 
                     250 + Math.sin(angle + arc / 2) * textRadius);
       ctx.rotate(angle + arc / 2 + Math.PI / 2);
-      var text = restaraunts[i];
-      ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+      selectedPoint = points[i];
+      ctx.fillText(selectedPoint, -ctx.measureText(selectedPoint).width / 2, 0);
       ctx.restore();
     } 
     
@@ -96,8 +101,8 @@ function stopRotateWheel() {
   var index = Math.floor((360 - degrees % 360) / arcd);
   ctx.save();
   ctx.font = 'bold 30px Helvetica, Arial';
-  var text = restaraunts[index]
-  ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  selectedPoint = points[index];
+  ctx.fillText(selectedPoint, 250 - ctx.measureText(selectedPoint).width / 2, 250 + 10);
   ctx.restore();
 }
 
