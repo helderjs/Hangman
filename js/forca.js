@@ -85,6 +85,14 @@ $(document).ready(function(){
             selectedPoint = 0;
             return;
         }
+        
+        /**
+         * Verifica se campo não foi enviado vazio
+         */
+        if (letra == '') {
+            alert('Digite uma letra do alfabeto');
+            return;
+        }
                     
         /**
          * Verifica se a letra já foi utilizada
@@ -121,6 +129,7 @@ $(document).ready(function(){
          * Coloca a letra na possição encontrada
          */
         skeleton[pos] = letra;
+        $("#letra_"+pos).text(letra);
                     
         /**
          * Procura mais ocorrências da letra e coloca na posição encontrada
@@ -128,6 +137,7 @@ $(document).ready(function(){
         while(pos > -1) {
             pos = palavra.indexOf(letra, pos+1);
             skeleton[pos] = letra;
+            $("#letra_"+pos).text(letra);
         }
         /**
          * Verifica se a palvra foi montada e finaliza o jogo
@@ -155,11 +165,18 @@ $(document).ready(function(){
         letras_usadas = [];
         skeleton = [];
         ganhou = false;
-        selectedPoint = 0;
         $("#erros").text(chances);
         drawRouletteWheel();
+        selectedPoint = 0;
         
-        alert(palavra);
+        /**
+         * Cria os campos da palavra na tela
+         */
+        var display = '';
+        for (var i = 0; i < palavra.length; i++) {
+            display += '<div id="letra_'+i+'" class="letter"></div>';
+        }
+        $("#display").html(display);
     });
                 
     /**
@@ -178,5 +195,5 @@ $(document).ready(function(){
      * Seta numero de erros e numero de pontos
      */
      $("#pontos").text(pontos);
-     $("#erros").text(8 - chances);
+     $("#erros").text(chances);
 });
