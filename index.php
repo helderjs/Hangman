@@ -14,6 +14,7 @@
         
         <meta name="description" content="A word game in which one player selects a word that the other player must guess by supplying each of its letters: for each incorrect guess a part of a stick figure of a hanged man is drawn.">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/roleta.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 /**
@@ -112,8 +113,7 @@
                         pos = palavra.indexOf(letra, pos+1);
                         skeleton[pos] = letra;
                     }
-                    
-                    /**
+                                        /**
                      * Verifica se a palvra foi montada e finaliza o jogo
                      */
                     if (skeleton.join('') == palavra) {
@@ -138,6 +138,18 @@
                     ganhou = false;
                     alert(palavra);
                 });
+                
+                /**
+                 * Gera a roleta usando canvas do Html5
+                 */
+                drawRouletteWheel();
+                
+                /**
+                 * Gira a roleta
+                 */
+                $("#girar").click(function(){
+                    spin();
+                });
             });
         </script>
     </head>
@@ -145,5 +157,7 @@
         <input type="text" id="entrada" size="2" maxlength="1" />
         <button id="enviar">Enviar</button>
         <button id="novo">Novo Jogo</button>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <button id="girar">Girar Roleta</button>
     </body>
 </html>
